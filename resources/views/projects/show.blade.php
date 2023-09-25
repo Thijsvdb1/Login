@@ -38,21 +38,30 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
+            <div class="form-group"style="padding-top: 10px;">
                 <strong>Start Date:</strong>
-                {{ $project->start_date }}
+                {{ date('d-m-Y', strtotime($project->start_date)) }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>End Date:</strong>
-                {{ $project->end_date }}
+                {{ date('d-m-Y', strtotime($project->end_date)) }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Hours:</strong>
                 {{ $project->max_hours }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group" style="padding-top: 10px;">
+                <strong>Medewerkers die aan dit project werken:</strong>
+                @foreach ($users as $user)
+                <br>{{ $user->name }}
+                    {{ $user->id }}
+                @endforeach
             </div>
         </div>
     </div>

@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectUser;
+use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\RedirectResponse;
 
@@ -17,7 +22,7 @@ class Projectcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request, Project $project): View
     {
         $projects = Project::orderby('id')->paginate(5);
         return view('projects.index',compact('projects'))
@@ -48,8 +53,10 @@ class Projectcontroller extends Controller
             'name' => 'required',
             'active' => 'required|boolean',
             'code' => 'required',
+            'start_date'=>'required|date',
+            'end_date'=>'required|date',
         ]);
- 
+
         Project::create($request->all());
 
         return redirect()->route('projects.index')
@@ -63,13 +70,16 @@ class Projectcontroller extends Controller
      * Display the specified resource.
      *
      * @param  \App\Project  $project
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project): View
     {
-        return view('projects.show',compact('project'));
+        $users = User::all('name');
+        // $users = User::where('id', $project->userId)->get();
+        return view('projects.show',compact('project', 'users'));
     }
-        // Dit stuurt je naar een view
+        // Dit stuurt je naar een show.blade view
 
 
     /**
@@ -98,11 +108,13 @@ class Projectcontroller extends Controller
             'name' => 'required',
             'active' => 'required|boolean',
             'code' => 'required',
+            'start_date'=>'required|date',
+            'end_date'=>'required|date',
         ]);
 
         $project->update($request->all());
 
-        return redirect()->route('project.index')
+        return redirect()->route('projects.index')
                         ->with('success','Project updated successfully');
     }
         // Hier worden de Projecten geupdate met de nieuwe gegevens
@@ -118,7 +130,7 @@ class Projectcontroller extends Controller
     {
         $project->delete();
 
-        return redirect()->route('project.index')
+        return redirect()->route('projects.index')
                         ->with('success','Project deleted successfully');
     }
         // Delete functie om Projecten mee wegte gooien.

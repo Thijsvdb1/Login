@@ -34,14 +34,15 @@
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
-		            <strong>Project Active:</strong>
-                    {{-- <input type="checkbox" value="1" name="active">* --}}
-		            <input type="text" name="active" class="form-control" placeholder="0 is offline - 1 is online ">
+		        <div class="form-group" style="padding-top: 20px;">
+		            <strong>Project Active:</strong><br>
+                    <input type="checkbox" value="0" name="active"> Not active<br>
+                    <input type="checkbox" value="1" name="active"> Active
+		            {{-- <input type="text" name="active" class="form-control" placeholder="0 is offline - 1 is online "> --}}
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group" >
+		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Code:</strong>
 		            <textarea class="form-control" style="height:150px" name="code" placeholder="Code"></textarea>
 		        </div>
@@ -50,23 +51,22 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Start Date:</strong>
-                    {{-- <input type="date" name="start_date" id="date" class="form-control" style="width: 100%; display: inline;" required  value="{{ $project->date->format('Y-m-d') }}" > --}}
-                    <input type="date" name="start_date" class="form-control" placeholder="Like this -> dd-mm-yy">
+                    <input type="date" max="9999-12-31" name="start_date" class="form-control" placeholder="Like this -> dd-mm-yy">
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>End Date:</strong>
-                    <input type="date" name="end_date" class="form-control" placeholder="Like this -> dd-mm-yy">
+                    <input type="date" max="9999-12-31" name="end_date" class="form-control" placeholder="Like this -> dd-mm-yy">
 		        </div>
 		    </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Hours:</strong>
                     <input type="time" name="max_hours" class="form-control" placeholder="Like this -> hh:mm">
 		        </div>
-		    </div>
+		    </div> --}}
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 		            <button type="submit" class="btn btn-primary">Submit</button>
 		    </div>

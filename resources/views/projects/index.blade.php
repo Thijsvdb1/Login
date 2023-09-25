@@ -37,15 +37,13 @@
     <td>{{ ++$i }}</td>
     <td>{{ $project->name }}</td>
     @if ( $project->active == '0' )
-        {{-- <td style="background-color: red !important">{{ $project->active }}</td> --}}
         <td style="background-color: red !important">{{''}}</td>
     @else
-        {{-- <td style="background-color: lime !important">{{ $project->active }}</td> --}} 
         <td style="background-color: lime !important">{{''}}</td>
     @endif
     <td>{{ $project->code }}</td>
-    <td>{{ $project->start_date }}</td>
-    <td>{{ $project->end_date }}</td>
+    <td>{{ date('d-m-Y', strtotime($project->start_date)) }}</td>
+    <td>{{ date('d-m-Y', strtotime($project->end_date)) }}</td>
     <td>{{ $project->max_hours }}</td>
     <td>
         <form action="{{ route('projects.destroy',$project->id) }}" method="POST">

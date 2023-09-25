@@ -37,8 +37,9 @@
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
-		            <strong>Project Active:</strong>
-                    {{-- <input type="checkbox" value="1" name="active">* --}}
+		            <strong>Project Active: (Not Active = 0)</strong>
+                    {{-- <input type="checkbox" value="0" name="active"> Not active
+                    <input type="checkbox" value="1" name="active">Active --}}
                     <input type="text" name="active" value="{{ $project->active }}" class="form-control" placeholder="Active">
 		        </div>
 		    </div>
@@ -51,13 +52,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Start Date:</strong>
-		            <input type="text" name="start_date" value="{{ $project->start_date }}" class="form-control" placeholder="Start date">
+		            <input type="date" max="9999-12-31" name="start_date" value="{{ $project->start_date }}" class="form-control" placeholder="Start date">
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>End Date:</strong>
-                    <input type="text" name="end_date" value="{{ $project->end_date }}" class="form-control" placeholder="End date">
+                    <input type="date" max="9999-12-31" name="end_date" value="{{ $project->end_date }}" class="form-control" placeholder="End date">
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

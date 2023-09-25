@@ -12,7 +12,10 @@ class Project extends Model
 
     protected $fillable = [
         'name',
+        'active',
         'code',
+        'start_date',
+        'end_date',
     ];
 
     /**
@@ -22,8 +25,13 @@ class Project extends Model
      */
 
 
-     protected $casts = [
+     protected $dates = [
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
