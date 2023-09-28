@@ -37,7 +37,7 @@
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
-		            <strong>Project Active: (Not Active = 0)</strong>
+		            <strong>Project Active: (Not Active = 0 | Active = 1)</strong>
                     {{-- <input type="checkbox" value="0" name="active"> Not active
                     <input type="checkbox" value="1" name="active">Active --}}
                     <input type="text" name="active" value="{{ $project->active }}" class="form-control" placeholder="Active">
@@ -64,7 +64,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Hours:</strong>
-                    <input type="text" name="max_hours" value="{{ $project->max_hours }}" class="form-control" placeholder="Hours">
+                    <input type="number" name="max_hours" value="{{ $project->max_hours }}" class="form-control" placeholder="Hours">
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">

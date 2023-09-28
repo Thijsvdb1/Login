@@ -16,6 +16,7 @@ class Project extends Model
         'code',
         'start_date',
         'end_date',
+        'max_hours'
     ];
 
     /**
@@ -30,7 +31,7 @@ class Project extends Model
         'end_date' => 'date',
     ];
 
-    public function projects()
+    public function users()
     {
         return $this->belongsToMany(User::class);
     }

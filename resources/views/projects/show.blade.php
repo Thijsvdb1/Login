@@ -57,11 +57,14 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group" style="padding-top: 10px;">
-                <strong>Medewerkers die aan dit project werken:</strong>
-                @foreach ($users as $user)
-                <br>{{ $user->name }}
-                    {{ $user->id }}
+                <strong>Participants:</strong>
+                <table>
+                @foreach($project->users as $user)
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                    </tr>
                 @endforeach
+                </table>
             </div>
         </div>
     </div>

@@ -41,10 +41,12 @@
     @else
         <td style="background-color: lime !important">{{''}}</td>
     @endif
-    <td>{{ $project->code }}</td>
+    <td>{{ Str::limit($project->code, 40);}}</td>  {{-- Dit zorgt ervoor dat de string een limiet heeft met de display--}}
+
     <td>{{ date('d-m-Y', strtotime($project->start_date)) }}</td>
     <td>{{ date('d-m-Y', strtotime($project->end_date)) }}</td>
     <td>{{ $project->max_hours }}</td>
+
     <td>
         <form action="{{ route('projects.destroy',$project->id) }}" method="POST">
             <a class="btn btn-info" href="{{ route('projects.show',$project->id) }}">Show</a>

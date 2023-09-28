@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Illuminate\Support\Str;
 use App\Models\ProjectUser;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
@@ -22,13 +24,18 @@ class Projectcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Project $project): View
+    public function index(Request $request): View
     {
-        $projects = Project::orderby('id')->paginate(5);
+        $projects= Project::orderBy('id')->get();
+
         return view('projects.index',compact('projects'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        ->with('i', ($request->input('page', 1) - 1) * 5);
+
+        // $projects = Project::orderby('id')->paginate(5);
+        // return view('projects.index',compact('projects'))
+        //     ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-        // ?
+        // wat hiet allemaal gebeurd geen idee?
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +45,8 @@ class Projectcontroller extends Controller
 
     public function create(Project $project): View
     {
-        return view('projects.create', compact('project'));
+        $users = User::all('name');
+        return view('projects.create', compact('project', 'users'));
     }
 
     /**
@@ -55,6 +63,7 @@ class Projectcontroller extends Controller
             'code' => 'required',
             'start_date'=>'required|date',
             'end_date'=>'required|date',
+            'max_hours'=>'required'
         ]);
 
         Project::create($request->all());
@@ -75,9 +84,8 @@ class Projectcontroller extends Controller
      */
     public function show(Project $project): View
     {
-        $users = User::all('name');
-        // $users = User::where('id', $project->userId)->get();
-        return view('projects.show',compact('project', 'users'));
+        // $users = User::all('name');
+        return view('projects.show',compact('project')); //users mist hier nu ook
     }
         // Dit stuurt je naar een show.blade view
 
@@ -110,6 +118,7 @@ class Projectcontroller extends Controller
             'code' => 'required',
             'start_date'=>'required|date',
             'end_date'=>'required|date',
+            'max_hours'=>'required'
         ]);
 
         $project->update($request->all());

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('code');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->time('max_hours')->nullable(); //00:00:00
+            $table->integer('max_hours')->nullable(); //00:00:00
             $table->timestamps();
         });
     }

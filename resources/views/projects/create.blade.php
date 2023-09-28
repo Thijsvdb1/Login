@@ -61,12 +61,23 @@
 		        </div>
 		    </div>
 
-            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Hours:</strong>
-                    <input type="time" name="max_hours" class="form-control" placeholder="Like this -> hh:mm">
+                    <input type="number" name="max_hours" class="form-control" placeholder="Hours">
 		        </div>
-		    </div> --}}
+		    </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group" style="padding-top: 10px;">
+                    <strong>Participants:</strong>
+                    <select  class="form-control" name="assign_to" multiple="" id='user_id'>
+                        @foreach($users as $user)
+                            <option>{{ $user->name }}</option>
+                        @endforeach
+                </div>
+            </div>
+
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 		            <button type="submit" class="btn btn-primary">Submit</button>
 		    </div>
