@@ -36,7 +36,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        @guest
+                        @guest {{-- If not yet logged in then you will see this --}}
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -49,12 +49,18 @@
                                 </li>
                             @endif
                         @else
-                        @role('Admin') {{-- Hier word aangeven dat alleen de Role Admin dit kan zien --}}
+                            @can('users-menu') {{-- Doormiddel van "@can" worden de permissions aangegeven die aangemaakt zijn doormiddel van de seeder --}}
                             <li><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                            @endcan
+                            @can('role-menu')
                             <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+                            @endcan
+                            @can('project-menu')
                             <li><a class="nav-link" href="{{ route('projects.index') }}">Project</a></li>
-                        @endrole
+                            @endcan
+                            @can('product-menu')
                             <li><a class="nav-link" href="{{ route('products.index') }}">Product</a></li>
+                            @endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

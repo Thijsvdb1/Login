@@ -59,12 +59,19 @@
             <div class="form-group" style="padding-top: 10px;">
                 <strong>Participants:</strong>
                 <table>
+                    {{-- Hier toont hij elke user uit project users --}}
                 @foreach($project->users as $user)
                     <tr>
                         <td>{{ $user->name }}</td>
                     </tr>
                 @endforeach
                 </table>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group" style="padding-top: 10px;">
+                <strong>Project score:</strong>
+                {{ $project->judgement }}
             </div>
         </div>
     </div>

@@ -36,8 +36,8 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group" style="padding-top: 20px;">
 		            <strong>Project Active:</strong><br>
-                    <input type="checkbox" value="0" name="active"> Not active<br>
-                    <input type="checkbox" value="1" name="active"> Active
+                    <input class="form-check-input"  type="checkbox" value="0" name="active"> Not active<br>
+                    <input class="form-check-input"  type="checkbox" value="1" name="active"> Active
 		            {{-- <input type="text" name="active" class="form-control" placeholder="0 is offline - 1 is online "> --}}
 		        </div>
 		    </div>
@@ -71,13 +71,27 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group" style="padding-top: 10px;">
                     <strong>Participants:</strong>
-                    <select  class="form-control" name="assign_to" multiple="" id='user_id'>
+                    {{-- Hier toont hij elke user name door het user->id --}}
+                    <select class="form-control" name="users[]" multiple="">
                         @foreach($users as $user)
-                            <option>{{ $user->name }}</option>
+                            <option value="{{$user->id}}">{{ $user->name }}</option>
                         @endforeach
+                    </select>
                 </div>
             </div>
-
+            <div style="display: none !important" class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group" style="padding-top: 10px;">
+                    <strong>Score:</strong>
+                    {{-- Hier kan ik nog maken dat hij ook niks kan invullen en hij het goedkeurd --}}
+                    <select class="form-control" name="judgement">
+                        <option name="judgement">{{ 'N.V.T.' }}</option>
+                        <option name="judgement">{{ 'Project voldoet niet aan de normen' }}</option>
+                        <option name="judgement">{{ 'Project voldoet minimaal' }}</option>
+                        <option name="judgement">{{ 'Project is voldoende' }}</option>
+                        <option name="judgement">{{ 'Project is volledig volgens de normen' }}</option>
+                    </select>
+                </div>
+            </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 		            <button type="submit" class="btn btn-primary">Submit</button>
 		    </div>

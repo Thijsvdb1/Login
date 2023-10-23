@@ -31,9 +31,6 @@ class Projectcontroller extends Controller
         return view('projects.index',compact('projects'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
 
-        // $projects = Project::orderby('id')->paginate(5);
-        // return view('projects.index',compact('projects'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 5);
     }
         // wat hiet allemaal gebeurd geen idee?
 
@@ -45,8 +42,8 @@ class Projectcontroller extends Controller
 
     public function create(Project $project): View
     {
-        $users = User::all('name');
-        return view('projects.create', compact('project', 'users'));
+        $users = User::all('name', 'id'); // Hier word de variable $ name en id aangeroepen
+        return view('projects.create', compact('project', 'users')); // Hier word de variable $ name en id mee gestuurt door de compact naar de view
     }
 
     /**
@@ -63,11 +60,11 @@ class Projectcontroller extends Controller
             'code' => 'required',
             'start_date'=>'required|date',
             'end_date'=>'required|date',
-            'max_hours'=>'required'
+            'max_hours'=>'required',
         ]);
 
-        Project::create($request->all());
-
+        $project = Project::create($request->all()); // Hier create hij alle requests
+        $project->users()->attach($request->input('users')); // Hier attacht hij de Input van users aan de pivot table inde database
         return redirect()->route('projects.index')
                         ->with('success','Project created successfully.');
     }
@@ -84,8 +81,7 @@ class Projectcontroller extends Controller
      */
     public function show(Project $project): View
     {
-        // $users = User::all('name');
-        return view('projects.show',compact('project')); //users mist hier nu ook
+        return view('projects.show',compact('project'));
     }
         // Dit stuurt je naar een show.blade view
 
@@ -98,7 +94,8 @@ class Projectcontroller extends Controller
      */
     public function edit(Project $project): View
     {
-        return view('projects.edit',compact('project'));
+        $users = User::all('id','name'); // Hier word de variable $ name en id aangeroepen
+        return view('projects.edit',compact('project', 'users')); // Hier word de variable $ name en id mee gestuurt door de compact naar de view
     }
         // Dit stuurt je naar een view
 
@@ -112,21 +109,53 @@ class Projectcontroller extends Controller
      */
     public function update(Request $request, Project $project): RedirectResponse
     {
+        // Dit zijn de oude users voordat je ze update dus hier zijn al wat dingen aangevinkt
+        $oldusers = $project->users;
+
          request()->validate([
             'name' => 'required',
-            'active' => 'required|boolean',
+            'active' => 'boolean',
             'code' => 'required',
             'start_date'=>'required|date',
             'end_date'=>'required|date',
             'max_hours'=>'required'
         ]);
 
-        $project->update($request->all());
+        // $project = Project::update($request->all());
+        // Dit is precies hetzelfde als hieronder alleen moesten we dat doen voor de active zodat hij die aangeeft of hij checked is en kan update
+        $project->update([
+            'name' => $request->name,
+            'active' => $request->has('active'),
+            'code' => $request->code,
+            'start_date'=> $request->start_date,
+            'end_date'=> $request->end_date,
+            'max_hours'=> $request->max_hours,
+            'judgement'=> $request->judgement
+        ]);
+
+        // Hier zegt hij als de request iets heeft van users dan maakt hij van die request input $newusers.
+        if($request->has('users')){
+        $newusers = $request->input('users');
+        }
+        // zo niet houd hij ze leeg zodat ze niet checked zijn
+        else{
+        $newusers = [];
+        }
+
+            // Hier zegt hij voor elke oude user detatch de id, dit gebeurd voor de update.
+        foreach( $oldusers as $olduser){
+                $project->users()->detach($olduser->id);
+        }
+            // Hier zegt hij voor elke nieuwe user attach die aan de pivot table.
+        foreach( $newusers as $newuser){
+                $project->users()->attach($newuser);
+        }
+
+
 
         return redirect()->route('projects.index')
                         ->with('success','Project updated successfully');
     }
-        // Hier worden de Projecten geupdate met de nieuwe gegevens
 
 
     /**
@@ -137,7 +166,7 @@ class Projectcontroller extends Controller
      */
     public function destroy(Project $project): RedirectResponse
     {
-        $project->delete();
+        $project->delete(); // Delete
 
         return redirect()->route('projects.index')
                         ->with('success','Project deleted successfully');

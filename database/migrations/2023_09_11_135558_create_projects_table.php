@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('max_hours')->nullable(); //00:00:00
+            $table->string('judgement');
+
             $table->timestamps();
         });
     }

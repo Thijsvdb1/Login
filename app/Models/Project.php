@@ -16,7 +16,9 @@ class Project extends Model
         'code',
         'start_date',
         'end_date',
-        'max_hours'
+        'max_hours',
+        'judgement',
+
     ];
 
     /**
