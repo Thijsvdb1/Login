@@ -11,7 +11,7 @@
                 <a class="btn btn-primary" href="{{ route('projects.index') }}"> Back</a>
             </div>
         </div>
-    </div>
+    </div><br>
 
 
     <div class="row">

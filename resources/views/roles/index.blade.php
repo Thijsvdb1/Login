@@ -11,7 +11,7 @@
         @can('role-create')
             <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
             @endcan
-        </div>
+        </div><br>
     </div>
 </div>
 

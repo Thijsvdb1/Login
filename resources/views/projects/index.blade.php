@@ -11,7 +11,7 @@
             @can('project-create')
             <a class="btn btn-success" href="{{ route('projects.create') }}"> Create New Project</a>
             @endcan
-        </div>
+        </div><br>
     </div>
 </div>
 
@@ -58,7 +58,7 @@
             @csrf
             @method('DELETE')
             @can('project-delete')
-            <button type="submit" class="btn btn-danger">Perma Delete</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
             @endcan
         </form>
     </td>
@@ -85,7 +85,7 @@
             @csrf
             @method('DELETE')
             @can('project-delete')
-            <button type="submit" class="btn btn-danger">Perma Delete</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
             @endcan
         </form>
     </td>

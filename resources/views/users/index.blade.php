@@ -9,7 +9,7 @@
         </div>
         <div class="pull-right">
             <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-        </div>
+        </div><br>
     </div>
 </div>
 
